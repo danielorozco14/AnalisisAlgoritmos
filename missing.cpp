@@ -1,25 +1,26 @@
 #include <iostream>
+#include <bits/stdc++.h>
 
 using namespace std;
 
 int partition (int arr[], int p, int r){
-	int i, j, x, tmp;
+	int i, j, x, temp;
 	
 	x = arr[r];
 	i = p - 1;
-	for (j = p; j < r; j++)	{
+	for (j = p; j < r; j++){
 		if (arr[j] <= x){
 			i++;
 			
-			tmp = arr[i];
+			temp = arr[i];
 			arr[i] = arr[j];
-			arr[j] = tmp;
+			arr[j] = temp;
 		}
 	}
 	i++;
-	tmp = arr[i];
+	temp = arr[i];
 	arr[i] = arr[r];
-	arr[r] = tmp;
+	arr[r] = temp;
 	
 	return i;
 }
@@ -34,15 +35,18 @@ void quicksort (int arr[], int p, int r){
 	}
 }
  
-int main (){
+int main ()
+{
 	int  t, n, p,data;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 	
 	cin>>t;
 	for (int i = 0; i < t; i++){
 		cin>>n;
 		int arr [n];
 		for (int j = 0; j < n; j++){
-            		cin>>data;
+            cin>>data;
 			arr[j]=data;
 		}
 		quicksort(arr, 0, n - 1);
@@ -54,7 +58,7 @@ int main (){
 			}
 		}
 		
-		cout<<p<<endl;
+		cout<<p<<"\n";
 	}
 	
 	return 0;
