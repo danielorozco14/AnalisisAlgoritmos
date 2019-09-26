@@ -1,4 +1,3 @@
-
 #include<stdio.h> 
 #include<stdlib.h> 
 #include <iostream>
@@ -18,16 +17,15 @@ struct node *nuevoNodo(int item){
     return temp; 
 } 
   
-// Funcion para imprimir datos del arbol, en orden(abajo hacia arriba).
+// Funcion para imprimir datos del arbol, en orden(izquierdo,root,derecho).
 void inorder(struct node *root){ 
-    if (root != NULL) 
-    { 
+    if (root != NULL){ 
         inorder(root->left); 
         cout<<root->key<<" ";
         inorder(root->right); 
     } 
 } 
-//Funcion para imprimir datos del arbol, en preorder
+//Funcion para imprimir datos del arbol, en preorder(root,izquierdo,derecho)
 void preorder(struct node *root){ 
     if (root != NULL){ 
         //preorder(root); 
@@ -36,7 +34,16 @@ void preorder(struct node *root){
         preorder(root->right); 
     } 
 } 
-  
+//Funcion para imprimir datos del arbol, en postorder(izquierdo,derecho,root)
+
+void postorder(struct node *root){
+    if(root!=NULL){
+        postorder(root->left);
+        postorder(root->right);
+        cout<<root->key<<" ";
+    }
+}
+
 /* Funcion para insertar un nuevo nodo al BST, dada una llave*/
 struct node* insert(struct node* node, int key){ 
     /* Si el arbol esta vacio, retorna un nuevo nodo*/
@@ -54,8 +61,7 @@ struct node* insert(struct node* node, int key){
   
 /* Dado un arbol no vacio, retorna el nodo con el valor de llave minimo encontrado en ese arbol.
 El arbol entero no necesita ser recorrido */
-struct node * minValueNode(struct node* node) 
-{ 
+struct node * minValueNode(struct node* node){ 
     struct node* current = node; 
   
     /* Recorre el arbol hasta encontrar la hoja mas a la izquierda */
@@ -66,8 +72,7 @@ struct node * minValueNode(struct node* node)
 } 
   
 /* Dado un BST y una llave, elimina la llave y retorna el nuevo root  */
-struct node* deleteNode(struct node* root, int key) 
-{ 
+struct node* deleteNode(struct node* root, int key){ 
     // Caso base
     if (root == NULL) return root;   
     // Si la llave a eliminar es mas pequeña que el root, entonces el valor esta en el sub arbol izquierdo    
@@ -91,7 +96,7 @@ struct node* deleteNode(struct node* root, int key)
         }   
         // Nodo con dos hijos: Obtener el sucesor en orden (el mas pequeño en el sub arbol derecho)
         struct node* temp = minValueNode(root->right);   
-        // Copiar el contenido del sucesor en orde a este nodo
+        // Copiar el contenido del sucesor en orden a este nodo
         root->key = temp->key;   
         // Eliminar el nodo sucesor
         root->right = deleteNode(root->right, temp->key); 
@@ -120,6 +125,12 @@ int main(){
   
     cout<<("En orden transversal del arbol dado: \n"); 
     inorder(root); 
+
+    cout<<"\nEn preorder:\n";
+    preorder(root);
+
+    cout<<"\nEn postorder:\n";
+    postorder(root);
 
     cout<<"\nEn forma de preorder: \n";
     preorder(root);
