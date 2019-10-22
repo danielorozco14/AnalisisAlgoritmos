@@ -3,7 +3,6 @@
 
 using namespace std;
 
-
 struct Nodo {
     int dato;
     Nodo *sig;
@@ -14,11 +13,11 @@ class Lista{
         Lista();
         void insertarInicio(int);
         void insertarFinal(int);
-        void ordenarLista();
+        void ordenarLista(Nodo*);
         void prueba();
         void cambiarLugar();
         void mostrar();
-    private:
+    //private:
         Nodo *pInicio;
 };
 
@@ -49,19 +48,24 @@ void Lista::insertarFinal(int dato){
         nuevo->sig = nullptr;
     }
 }
-void Lista::ordenarLista(){
-    Nodo *salto=new Nodo();
-    salto = this->pInicio;
+void Lista::ordenarLista(Nodo *lista){
+    Nodo *salto;
     Nodo *temp=nullptr;
-    do{
-        
-        if(salto->dato > salto->sig->dato){
-           cout<<salto->sig->dato;
-        }
-        salto=salto->sig;
-       
-    }while(salto->sig !=NULL);
-
+    bool flag;
+    do{        
+        flag=false;
+        salto=lista;
+        while(salto->sig!=temp){
+           if(salto->dato > salto->sig->dato){
+                flag=true;
+                int tmp=salto->dato;
+                salto->dato=salto->sig->dato;
+                salto->sig->dato=tmp;                 
+            }            
+            salto=salto->sig;
+        }        
+        temp=salto;
+    }while(flag);
 }
 void Lista::mostrar(){
     Nodo *salto = this->pInicio;
@@ -74,14 +78,14 @@ void Lista::mostrar(){
 int main(){
 
     Lista ls;
-
+    Nodo *lista;
     ls.insertarFinal(3);
     ls.insertarFinal(2);
     ls.insertarFinal(1);
     ls.mostrar();
     cout<<"------\n";
-    ls.ordenarLista();
-    //ls.mostrar();
+    ls.ordenarLista(ls.pInicio);
+    ls.mostrar();
 
     return 0;
 }
