@@ -4,7 +4,7 @@ using namespace std;
 
 
 int activity(int inicio[],int final[],int L[]){
-  int n=sizeof(inicio)/sizeof(inicio[0]);
+  int n=11;//Tamaño del arreglo
   
   for(int i=0; i<n;i++){
     for(int j=0; j<i; j++){
