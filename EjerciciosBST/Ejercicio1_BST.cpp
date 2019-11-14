@@ -25,8 +25,8 @@ struct Nodo *nuevoNodo(int item){
 void inorder(struct Nodo *root){
     if (root != NULL){
         inorder(root->left);
-        //cout<<root->key<<" ";
-        contArbol.push_back(root->key);
+        cout<<root->key<<" ";
+        //contArbol.push_back(root->key);
         inorder(root->right);
     }
 }
@@ -165,6 +165,27 @@ struct Nodo* borrarNodo(struct Nodo* root, int key){
     return root;
 }
 
+//FUNCION PARA BORRAR NODOS REPETIDOS
+
+struct Nodo *borrarRepetidos(struct Nodo *root,int N){
+    
+    if(root!=NULL){
+        if(root->key < N ){
+            borrarRepetidos(root->left,N);
+            if(root->key==N){
+                root=borrarNodo(root,N);
+            }
+        }
+        else if(root->key > N){
+            borrarRepetidos( root->right,N);
+            if(root->key ==N){
+                root=borrarNodo(root,N);
+            }
+        }
+    }   
+    return root;
+}
+
 
 int main(){
     /* Creamos el siguiente arbol
@@ -186,6 +207,8 @@ int main(){
     root = insert(root, 10);
     root = insert(root, 14);
     root = insert(root, 13);
+    root = insert(root, 13);
+    /**
     root = insert(root, 16);
     root = insert(root, 17);
     root = insert(root, 18);
@@ -193,18 +216,21 @@ int main(){
     root = insert(root, 20);
     root = insert(root, 21);
     root = insert(root, 22);
+    **/
 
 
     //cout<<distanciaEntreNodos(root,1,7)<<endl;
 
-    inorder(root);
-    int ini=0;
-    int fin=contArbol.size()-1;
-    preorder(root);
-    root=balance(contArbol,ini,fin);
-    cout<<endl;
-    preorder(root);
-    cout<<endl;
+    //inorder(root);
+    //int ini=0;
+    //int fin=contArbol.size()-1;
+   // preorder(root);
+    //root=balance(contArbol,ini,fin);
+    //cout<<endl;
+    //preorder(root);
+   // cout<<endl;
+   postorder(root);
+
 
 /*
     cout<<("En orden transversal del arbol dado: \n");
