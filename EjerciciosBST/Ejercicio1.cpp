@@ -170,17 +170,13 @@ struct Nodo* borrarNodo(struct Nodo* root, int key){
 struct Nodo *borrarRepetidos(struct Nodo *root,int N){
     
     if(root!=NULL){
-        if(root->key < N ){
-            borrarRepetidos(root->left,N);
-            if(root->key==N){
-                root=borrarNodo(root,N);
-            }
+        if(root->key == N){
+            root=borrarNodo(root,N);
+        }else if(root->key < N){
+            borrarRepetidos(root->right,N);
         }
         else if(root->key > N){
-            borrarRepetidos( root->right,N);
-            if(root->key ==N){
-                root=borrarNodo(root,N);
-            }
+            borrarRepetidos(root->left,N);
         }
     }   
     return root;
@@ -230,6 +226,12 @@ int main(){
     //preorder(root);
    // cout<<endl;
    postorder(root);
+
+   root = borrarNodo(root, 13);
+   cout<<endl;
+   //root=borrarRepetidos(root,13);
+   preorder(root);
+   cout<<endl;
 
 
 /*
