@@ -1,11 +1,11 @@
 bool bstValido(Nodo* root){  
     static Nodo *prev = NULL;  
-    
+    //RECORRIDO EN INORDER
     if (root){  
         if (!bstValido(root->left))  
-        return false;  
+            return false;  
   
-        if (prev != NULL && root->data <= prev->data)  
+        if (prev != NULL && root->key <= prev->key)  
             return false;  
   
         prev = root;  

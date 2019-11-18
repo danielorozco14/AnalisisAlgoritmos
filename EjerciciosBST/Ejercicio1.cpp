@@ -11,8 +11,8 @@ struct Nodo{
     struct Nodo *left, *right;
 };
 
-vector <int> contArbol;
-
+vector <int> Aux;
+vector<int>::iterator it;
 // Estructura para crear nodos de un arbol.
 struct Nodo *nuevoNodo(int item){
     struct Nodo *temp =  new Nodo;
@@ -167,20 +167,38 @@ struct Nodo* borrarNodo(struct Nodo* root, int key){
 
 //FUNCION PARA BORRAR NODOS REPETIDOS
 
-struct Nodo *borrarRepetidos(struct Nodo *root,int N){
-    
-    if(root!=NULL){
-        if(root->key == N){
-            root=borrarNodo(root,N);
-        }else if(root->key < N){
-            borrarRepetidos(root->right,N);
-        }
-        else if(root->key > N){
-            borrarRepetidos(root->left,N);
-        }
-    }   
-    return root;
+void llenarVector(struct Nodo *root){
+    if (root != NULL){
+        //preorder(root);
+        Aux.push_back(root->key);
+        llenarVector(root->left);
+        llenarVector(root->right);
+    }
 }
+
+void borrarRepetidos(vector<int> &Aux,int N,struct Nodo *root){
+    llenarVector(root);    
+    //BORRA TODAS LAS OCURRENCIAS DEL ARBOL
+    Aux.erase(remove(Aux.begin(), Aux.end(), N), Aux.end());      
+}
+
+bool bstValido(Nodo* root){  
+    static Nodo *prev = NULL;  
+    //RECORRIDO EN INORDER
+    if (root){  
+        if (!bstValido(root->left))  
+            return false;  
+  
+        if (prev != NULL && root->key <= prev->key)  
+            return false;  
+  
+        prev = root;  
+  
+        return bstValido(root->right);  
+    }  
+  
+    return true;  
+} 
 
 
 int main(){
@@ -192,6 +210,8 @@ int main(){
        1    6      14
            /  \    /
           4    7  13
+                  /
+                 13 
     */
     struct Nodo *root = NULL;
     root = insert(root, 8);
@@ -225,14 +245,20 @@ int main(){
     //cout<<endl;
     //preorder(root);
    // cout<<endl;
+  
    postorder(root);
-
-   root = borrarNodo(root, 13);
    cout<<endl;
-   //root=borrarRepetidos(root,13);
-   preorder(root);
+   borrarRepetidos(Aux,13,root);
+   root=balance(Aux,0,Aux.size()-1);
+   postorder(root);
    cout<<endl;
-
+   if(bstValido(root)){
+       cout<<"Si es BST\n";
+   }
+   else{
+       cout<<"No es BST\n";
+   }
+   
 
 /*
     cout<<("En orden transversal del arbol dado: \n");
