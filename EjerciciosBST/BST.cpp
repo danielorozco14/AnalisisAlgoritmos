@@ -11,7 +11,9 @@ struct Nodo{
     struct Nodo *left, *right;
 };
 
-vector <int> Aux;
+vector <int> Arbol_1;
+vector <int> Arbol_2;
+
 vector<int>::iterator it;
 // Estructura para crear nodos de un arbol.
 struct Nodo *nuevoNodo(int item){
@@ -170,16 +172,20 @@ struct Nodo* borrarNodo(struct Nodo* root, int key){
 void llenarVector(struct Nodo *root){
     if (root != NULL){
         //preorder(root);
-        Aux.push_back(root->key);
+        Arbol_1.push_back(root->key);
+        Arbol_1.push_back(root->key2;
+
         llenarVector(root->left);
         llenarVector(root->right);
     }
 }
 
-void borrarRepetidos(vector<int> &Aux,int N,struct Nodo *root){
+void borrarRepetidos(vector<int> &Arbol_1,int N,struct Nodo *root){
     llenarVector(root);    
     //BORRA TODAS LAS OCURRENCIAS DEL ARBOL
-    Aux.erase(remove(Aux.begin(), Aux.end(), N), Aux.end());      
+    Arbol_1.erase(remove(Arbol_1.begin(), Arbol_1.end(), N), Arbol_1.end());      
+    Arbol_1.erase(remove(Arbol_1.begin(), Arbol_1.end(), N), Arbol_1.end());    2 
+
 }
 
 bool bstValido(Nodo* root){  
@@ -200,6 +206,14 @@ bool bstValido(Nodo* root){
     return true;  
 } 
 
+struct Nodo *insertarAlArbol(int arr[],int tam, Nodo *root){
+    
+    for(int i=0;i<tam;i++){
+        root=insert(root,arr[i]);
+    }    
+    return root;
+}
+
 
 int main(){
     /* Creamos el siguiente arbol
@@ -213,7 +227,7 @@ int main(){
                   /
                  13 
     */
-    struct Nodo *root = NULL;
+    struct Nodo *root = NULL, *root2=NULL;
     root = insert(root, 8);
     root = insert(root, 3);
     root = insert(root, 1);
@@ -225,29 +239,36 @@ int main(){
     root = insert(root, 13);
     root = insert(root, 13);
       
-   postorder(root);
-   cout<<endl;
-   /*
-    EJERCICIO 1
-   */
-   borrarRepetidos(Aux,13,root);
-   root=balance(Aux,0,Aux.size()-1);
-   postorder(root);
-   cout<<endl;
-   /*
-    EJERCICIO 2
-   */
-   if(bstValido(root)){
-       cout<<"Si es BST\n";
-   }
-   else{
-       cout<<"No es BST\n";
-   }
+    postorder(root);
+    cout<<endl;
+    /*
+     EJERCICIO 1
+    */
+    borrarRepetidos(Arbol_1,13,root);
+    borrarRepetidos(Arbol_1,13,root2;
 
-   /*
-    EJERCICIO 3
-   */
-   
+    root=balance(Arbol_1,0,Arbol_1.size()-1);
+    root=balance(Arbol_1,0,Arbol_1.size()-12;
+
+    postorder(root);
+    cout<<endl;
+    /*
+     EJERCICIO 2
+    */
+    if(bstValido(root)){
+       cout<<"Si es BST\n";
+    }
+    else{
+       cout<<"No es BST\n";
+    }
+
+    /*
+     EJERCICIO 3
+    */   
+    int arr[5]={1,5,6,3,7};
+    root2=insertarAlArbol(arr,5,root2);
+    inorder(root2);
+    cout<<endl;
 
     return 0;
 }
